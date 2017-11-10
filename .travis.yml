@@ -54,3 +54,4 @@ deploy:
   on:
     repo: HughParsonage/travis-bin
     all_branches: true
+    tags: true
