@@ -46,7 +46,7 @@ deploy:
     secure: FzHnYT5YS73gJ7AvwK6KqvZWlQWvyZb9TyjPFUd53/jXwUrwisH9VOycav0vmY/mU4DYw6oXTVQaj3KCQJqWw3x9+lg8USa89p8upueTzSb9fIV1N+t/9eeFDlHY/F1xGobAFAm80iy2IQx1CifSEr9faik0jkt+jCZzuYogzbqqMyMr1LE5gMN3VQyiOzZKPrh2BfW+iT+D+XssAoemVi27B9bTu3SccalG73J8cvjQhb0rQTJgFp5tBAM7Bh6Q5r+Ir2MA8MGnPnKM1huMfLJjPNFap3oTvPA0ypA9ndwwM7SyP2B+IuerrH3ZuzFwnke8mfTQey/rXAh1cHWcOsE3TxfG48chqG52sy5zPH2K1o1ERNE1boBqQBRewOizuROpInSl+iGSHdUsJsdmvX/AbIB89oqYC+BZ8wLU6vqW0KJ1vwehQ+Vxxli/Bg2jdu/udGWVpGEaW6pl8B9h0QavOIZnhVbMP9c/UebAkekz4u9u1VBpE1LWAqRY8mNaqCKitv9r/3fWWI/+dS1uS2eR5N3pAccF8R8tjOvOA4bAUA+nT11hZQSHgl6d0UDpdMb29Ntz55tGtXSWOnWfH0QZbRoqTMyapln93ZU/kOEfCU7qIPcwrCWJfQYGKMFy8m+tVKIvoYXLou2F6dSKIkFlHqv6bwAoPFJ8R42Xbq0=
   # local_dir: dist
   file: 
-    - texlive-local.deb
-    - texlive.tar.gz
+    - texlive*
+  file_glob: true
   on:
     repo: HughParsonage/travis-bin
