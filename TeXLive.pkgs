@@ -9,7 +9,8 @@ appendix
 bbm-macros
 bbding
 beamer
-biblatex-biber
+texlive-bibtex-extra
+biber
 bibtex
 bigfoot
 blkarray
