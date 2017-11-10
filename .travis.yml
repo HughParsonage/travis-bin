@@ -52,3 +52,4 @@ deploy:
   file_glob: true
   on:
     repo: HughParsonage/travis-bin
+    all_branches: true
