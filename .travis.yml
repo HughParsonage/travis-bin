@@ -34,6 +34,7 @@ script:
 - mv texlive-local*.deb texlive-local.deb
 - git add texlive-local.deb
 - git add texlive.tar.gz
+- mkdir dist
 # - mv texlive.tar.gz texlive-local.deb dist/
 - "./index.sh > dist/index.html"
 cache:
