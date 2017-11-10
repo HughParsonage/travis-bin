@@ -19,19 +19,19 @@ script:
 - curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1
   -C ~/.local/bin '*/stack'
 - stack --version
-- git clone --depth=50 https://github.com/jgm/pandoc-citeproc
-- cd pandoc-citeproc
-- stack setup
-- stack install --test --flag 'pandoc-citeproc:embed_data_files'
-- cd ..
-- git clone --depth=50 https://github.com/jgm/pandoc
-- cd pandoc
-- stack setup
-- stack install --test --flag 'pandoc:embed_data_files'
-- ls -lh ~/.local/bin
-- pandoc --version
-- pandoc-citeproc --version
-- cd ..
+# - git clone --depth=50 https://github.com/jgm/pandoc-citeproc
+# - cd pandoc-citeproc
+# - stack setup
+# - stack install --test --flag 'pandoc-citeproc:embed_data_files'
+# - cd ..
+# - git clone --depth=50 https://github.com/jgm/pandoc
+# - cd pandoc
+# - stack setup
+# - stack install --test --flag 'pandoc:embed_data_files'
+# - ls -lh ~/.local/bin
+# - pandoc --version
+# - pandoc-citeproc --version
+# - cd ..
 - sed -i 's@\$HOME@'"$HOME"'@' TexLive.profile
 - cat TexLive.profile
 - wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
@@ -48,7 +48,7 @@ script:
 - mv texlive-local*.deb texlive-local.deb
 - mkdir dist
 - mv texlive.tar.gz texlive-local.deb dist/
-- cp ~/.local/bin/pandoc* dist/
+# - cp ~/.local/bin/pandoc* dist/
 - "./index.sh > dist/index.html"
 cache:
   directories:
@@ -58,7 +58,6 @@ cache:
 deploy:
   provider: releases
   skip_cleanup: true
-  github_token: "$GH_TOKEN"
   local_dir: dist
   on:
     branch: master
