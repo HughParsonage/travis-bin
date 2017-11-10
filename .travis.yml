@@ -1,74 +1,64 @@
 language: haskell
 dist: trusty
 sudo: false
-
 addons:
   apt:
     packages:
     - equivs
     - python
-
 env:
   global:
-    - PATH=$HOME/.local/bin:$PATH
+  - PATH=$HOME/.local/bin:$PATH
+  - secure: qUOsb2y7r3WUoKT2T5EW/hBAPM4uFWBIfZ78U73P4k7BJeIT/3p8cZGI7YIGpZl8fzxSEIEgY4+2+BPhGn4OF+9NTKTbGoKIBvEb1TACTR5YhKURrbDSSJSSG2l21Su7pFrKGvkGewNDkexWSjUzbY9lvXwlbZisK1pJOHJiFr6WIAEpgBuEQg4G30Nm/RfdrktgqPjRAVLm0bJTWswY4JBmV2KcTvTHBh6aBfYYp2KoqMKDKFij+I5taH1jMC1bWL0lFWnX39YiyFlNJg3xzxGl/9Hz63Jv9U+Fff8WTfcxWn1+gHZzzZYSRJ205wCdtoj2y9rc/xApW2ZL+osr3BDF7pH0ARuZxVdFq9JbHS2oUTbWZ9G3EYTcxEbj6tvMkqJijmVEnU7KydFHdr8mnmIy7hPpg2B2CBoy2eIYC0KzLY5Kksr/M4sM+Vg/MTqvFLrJ4nNiEBB0ajPMmKofe//l9RJITc0pME7upBBgRDCZhb3O2s96EzGRJC9S69xLnEF8ZAGtHSOUa9p8V6AIA6wjEQgkQ+10VxNsUd8OwstKKNUQezttabU/wDnNyiF22+OxJ1H4fQOA+ATx1LV1QHNBI4KSko99Zt4RbKzETil7CeOLSsbRsdEL6ZGf3Pl/LoZr9KY74l1wEkiAhd3rvQ14NOU6rXwtmHq4C6PkkY8=
 
 before_install:
-  - mkdir -p $HOME/.local/bin
-
+- mkdir -p $HOME/.local/bin
 install:
-  - true
-
+- true
 script:
-  - curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
-  - stack --version
-  - git clone --depth=50 https://github.com/jgm/pandoc-citeproc
-  - cd pandoc-citeproc
-  - stack setup
-  - stack install --test --flag 'pandoc-citeproc:embed_data_files'
-  - cd ..
-  - git clone --depth=50 https://github.com/jgm/pandoc
-  - cd pandoc
-  - stack setup
-  - stack install --test --flag 'pandoc:embed_data_files'
-  - ls -lh ~/.local/bin
-  - pandoc --version
-  - pandoc-citeproc --version
-
-  - cd ..
-  - sed -i 's@\$HOME@'"$HOME"'@' TexLive.profile
-  - cat TexLive.profile
-  - wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-  - wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/debian-control-texlive-in.txt
-  # `tlmgr install bibtex` does not install apalike.sty, hence the hack
-  - wget http://ftp.cs.stanford.edu/tex/bibtex/apalike.sty
-
-  - tar zxf install-tl*
-  - ./install-tl*/install-tl -profile TexLive.profile
-  - export PATH=$PATH:$HOME/texlive/bin/x86_64-linux
-  - ./install-more-tl-pkgs.sh
-  - mv apalike.sty ~/texlive/texmf-dist/tex/latex/
-  - mktexlsr
-  - tar zcf texlive.tar.gz -C ~ texlive
-
-  - equivs-build debian-*
-  - mv texlive-local*.deb texlive-local.deb
-
-  - mkdir dist
-  - mv texlive.tar.gz texlive-local.deb dist/
-  - cp ~/.local/bin/pandoc* dist/
-  - ./index.sh > dist/index.html
-
+- curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1
+  -C ~/.local/bin '*/stack'
+- stack --version
+- git clone --depth=50 https://github.com/jgm/pandoc-citeproc
+- cd pandoc-citeproc
+- stack setup
+- stack install --test --flag 'pandoc-citeproc:embed_data_files'
+- cd ..
+- git clone --depth=50 https://github.com/jgm/pandoc
+- cd pandoc
+- stack setup
+- stack install --test --flag 'pandoc:embed_data_files'
+- ls -lh ~/.local/bin
+- pandoc --version
+- pandoc-citeproc --version
+- cd ..
+- sed -i 's@\$HOME@'"$HOME"'@' TexLive.profile
+- cat TexLive.profile
+- wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+- wget https://github.com/scottkosty/install-tl-ubuntu/raw/master/debian-control-texlive-in.txt
+- wget http://ftp.cs.stanford.edu/tex/bibtex/apalike.sty
+- tar zxf install-tl*
+- "./install-tl*/install-tl -profile TexLive.profile"
+- export PATH=$PATH:$HOME/texlive/bin/x86_64-linux
+- "./install-more-tl-pkgs.sh"
+- mv apalike.sty ~/texlive/texmf-dist/tex/latex/
+- mktexlsr
+- tar zcf texlive.tar.gz -C ~ texlive
+- equivs-build debian-*
+- mv texlive-local*.deb texlive-local.deb
+- mkdir dist
+- mv texlive.tar.gz texlive-local.deb dist/
+- cp ~/.local/bin/pandoc* dist/
+- "./index.sh > dist/index.html"
 cache:
   directories:
-  - $HOME/.ghc
-  - $HOME/.cabal
-  - $HOME/.stack
-
+  - "$HOME/.ghc"
+  - "$HOME/.cabal"
+  - "$HOME/.stack"
 deploy:
-  provider: pages
+  provider: releases
   skip_cleanup: true
-  github_token: $GH_TOKEN
+  github_token: "$GH_TOKEN"
   local_dir: dist
-  fqdn: travis-bin.yihui.name
   on:
     branch: master
