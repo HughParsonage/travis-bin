@@ -45,6 +45,6 @@ deploy:
   provider: releases
   skip_cleanup: true
   local_dir: dist
-  github_token: "$GH_TOKEN"
+  github_token: $GH_TOKEN
   on:
     branch: master
