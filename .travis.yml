@@ -50,6 +50,7 @@ deploy:
   file: 
     - texlive*
   file_glob: true
+  skip_cleanup: true
   on:
     repo: HughParsonage/travis-bin
     all_branches: true
